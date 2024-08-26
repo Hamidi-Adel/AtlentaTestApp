@@ -20,6 +20,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('api/', include('taskapp.urls')),  # Include the app's URLs
-    path('admin/', admin.site.urls),
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('api/', include('taskapp.urls')),  # Route for the taskapp API, includes URLs defined in taskapp/urls.py
+    path('admin/', admin.site.urls),        # Route for the Django admin interface
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # Serves static files during development
