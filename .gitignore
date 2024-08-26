@@ -57,3 +57,5 @@ coverage/
 *.swo
 *.swm
 *.log
+
+*storybook.log
