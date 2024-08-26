@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: Dockerfile  # Refers to the Dockerfile at the root level (for the Django backend)
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - static:/usr/src/app/static
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    command: npm start
+    depends_on:
+      - backend
+
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx  # Points to the Dockerfile inside the nginx directory
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - static:/usr/src/app/static
+    depends_on:
+      - frontend
+      - backend
+
+volumes:
+  static:
+    external: false
